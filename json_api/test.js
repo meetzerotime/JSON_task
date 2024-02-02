@@ -298,82 +298,106 @@
 
 
 
-const express = require('express');
-const fs = require('fs');
-const app = express();
 
-const custom = require('../Data/custom-items.json')
-const response = require('../Data/response.json')
-const sectionid = require('../Data/section.json')
-
-const quiz = require("../Data/quiz.json");
-
-
-const userSelectedTopicIds = [2, 10, 12];
-
-
-// Write the updated response.json back to file
-fs.writeFile("../Data/response.json", JSON.stringify(response, null, 2), (err) => {
-    if (err) {
-        console.error("Error writing response.json:", err);
-    } else {
-        console.log("Quiz points updated successfully!");
-    }
-});
+// // Write the updated response.json back to file
+// fs.writeFile("../Data/response.json", JSON.stringify(response, null, 2), (err) => {
+//     if (err) {
+//         console.error("Error writing response.json:", err);
+//     } else {
+//         console.log("Quiz points updated successfully!");
+//     }
+// });
 
 
 
-const newsPointsAwarded = {}; // To track if points have already been awarded for a topic
-for (const selectedTopicId of userSelectedTopicIds) {
-    for (const resp of response) {
-        if (resp.section_type === "news") {
-            for (const content of resp.content) {
-                if (userSelectedTopicIds.includes(content.topic_id) && !newsPointsAwarded[content.topic_id]) {
-                    news_points += 100;
-                    newsPointsAwarded[content.topic_id] = true;
-                }
-            }
-        }
-    }
-}
+// const newsPointsAwarded = {}; // To track if points have already been awarded for a topic
+// for (const selectedTopicId of userSelectedTopicIds) {
+    //     for (const resp of response) {
+        //         if (resp.section_type === "news") {
+//             for (const content of resp.content) {
+    //                 if (userSelectedTopicIds.includes(content.topic_id) && !newsPointsAwarded[content.topic_id]) {
+        //                     news_points += 100;
+        //                     newsPointsAwarded[content.topic_id] = true;
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        
+        // for (const selectedTopicId of userSelectedTopicIds) {
+            //     for (const quizItem of quiz) {
+                //         if (selectedTopicId === quizItem.topic_id) {
+                    //             for (const resp of response) {
+                        //                 if (resp.section_id === "Quiz") {
+                            //                     for (const content of resp.content) {
+//                         if (content.id === quizItem.id) {
+//                             quiz_po
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
-for (const selectedTopicId of userSelectedTopicIds) {
-    for (const quizItem of quiz) {
-        if (selectedTopicId === quizItem.topic_id) {
-            for (const resp of response) {
-                if (resp.section_id === "Quiz") {
-                    for (const content of resp.content) {
-                        if (content.id === quizItem.id) {
-                            quiz_po
+
+// for (const selectedTopicId of userSelectedTopicIds){
+    //     for(const section_item of sectionid){
+        //         if (selectedTopicId === section_item){
+            //             for(const content of response.content){
+        
+        
+                //             }
+        //         }
+        //     }
+        // }
+        
+        const express = require('express');
+        const fs = require('fs');
+        const app = express();
+        
+        const custom = require('../Data/custom-items.json')
+        const responseData = require('../Data/response.json')
+        const sectionid = require('../Data/section.json')
+        
+        const quiz = require("../Data/quiz.json");
+        
+        
+        const userSelectedTopicIds = [2, 10, 12];
+        const userSelectedFormatIds = [1, 2, 3, 4, 5, 6];
+        
+        
+let sixcustom_point = 0
+        // for (const selectedTopicId of userSelectedTopicIds) {
+        //     for (const quizItem of quizData) {
+        //         if (selectedTopicId === quizItem.topic_id) {
+        //             for (const resp of responseData) {
+        //                 if (resp.section_type === "Quiz") {
+        //                     for (const content of resp.content) {
+        //                         if (content.id === quizItem.id) {
+        //                             quizPoints += 100;
+        //                         }
+
+        function customdata (){
+            for (const selectedFormatId of userSelectedFormatIds){
+                for(const custom_item of custom){
+                    if (selectedFormatId === custom_item.format_id){
+                    for (const resp of responseData){
+                        if(resp.section_name === "History Knowledge"){
+                            for(const sixcontent of resp.content){
+                                if(sixcontent.format_id === custom.format_id){
+                                    sixcustom_point += 10
+                                    
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-    }
-}
-
-// Calculate quiz points and update response.json
-for (const selectedTopicId of userSelectedTopicIds) {
-    for (const resp of response) {
-        if (resp.section_type === "Quiz") {
-            for (const content of resp.content) {
-                const matchingQuizItem = quiz.find(item => item.id === content.id && item.topic_id === selectedTopicId);
-                if (matchingQuizItem) {
-                    content.points = 100; // Assuming each correct answer gives 100 points
-                }
-            }
+        return {
+            sixcustom_point
         }
     }
-}
-
-for (const selectedTopicId of userSelectedTopicIds){
-    for(const section_item of sectionid){
-        if (selectedTopicId === section_item){
-            for(const content of response.content){
-
-
-            }
-        }
-    }
-}
+    customdata()
+    console.log(sixcustom_point);
