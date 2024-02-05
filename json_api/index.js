@@ -1,7 +1,7 @@
 const express = require('express')
 const PORT = 3000;
 const app = express();
-const getdata = require('./test3');
+const getdata = require('./solutioncode');
 
 // app.use(getdata)
 

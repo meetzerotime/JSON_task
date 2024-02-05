@@ -1,10 +1,7 @@
 const quizData = require("../Data/quiz.json");
-// const gamesData = require("../Data/games.json");
 let responseData = require("../Data/response.json");
 const formatData = require("../Data/format.json");
 const sectionData = require("../Data/section.json")
-// const customData = require("../Data/custom-items.json")
-// const sourceData = require("../Data/source.json")
 
 const userSelectedTopicIds = [2, 10, 12];
 const userSelectedFormatIds = [3, 1, 2];
