@@ -1,18 +1,14 @@
 const express = require('express')
-const fs = require('fs')
+const PORT = 3000;
 const app = express();
-const Data = require('./test3');
 const getdata = require('./test3');
 
-app.use(getdata)
+// app.use(getdata)
 
 // Define routes
 app.get('/', getdata)
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3001");
-    
-});
+app.listen(PORT, () => console.log(`server started on: ${PORT}`))
 
 
 
